@@ -24,4 +24,27 @@ var datefunction = function() {
 }
 datefunction()
 ```
-上边的代码一直会创建一个新的时间对象，并将其转化字符传存储在本地中。之前存储的一直不在，我找了一晚上bug.最后终于发现local的用法有点问题。
+上边的代码一直会创建一个新的时间对象，并将其转化字符传存储在本地中。之前存储的一直不在，我找了一晚上bug.最后终于发现local的用法有点问题。原来在使用local时，我们要先进行解析。先将内容一个解析(JSON.parse(localStorage.years)) 然后在进行储存。这样每次刷新就不会重置了。
+``` javascript
+// 创建一个数组用来保存localStorage中的数据
+var yyear = []
+// 先解析
+yyear = JSON.parse(localStorage.years)
+var datefunction = function() {
+        var date = new Date();
+        var year =  date.getFullYear()
+        var month = date.getMonth() + 1
+        var day = date.getDate()
+        var hours = date.getHours()
+        var minutes = date.getMinutes()
+        var Y_m_d = `${year}/${month}/${day} ${hours}:${minutes}`
+        // 日期对象的一个储存
+        yyear.push(Y_m_d)
+        // 存储在localStorage.years 中
+        localStorage.years = JSON.stringify(yyear)
+        // 然后解析
+
+        console.log(localStorage.years)
+}
+datefunction()
+```
