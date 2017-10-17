@@ -48,3 +48,4 @@ var datefunction = function() {
 }
 datefunction()
 ```
+当然了，所谓的Local就是一个对象，我们在使用它时对它的key进行改变，同时给该key赋值。最终进行保存
